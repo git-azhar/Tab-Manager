@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Tab Manager Pro</title>
+
+<style>
+*,*::before,*::after{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#070911;
+  --bg-card:#0a0d16;
+  --bg-subtle:#0d1225;
+  --blue:#2b78ff;
+  --blue-dim:#1a3870;
+  --blue-glow:rgba(43,120,255,.12);
+  --text:#eef3ff;
+  --text-muted:#7a9acc;
+  --text-dim:#3a5a7a;
+  --border:rgba(255,255,255,.07);
+  --green:#4ecfa0;
+  --radius:16px;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  line-height:1.7;
+}
+
+header{
+  border-bottom:1px solid var(--border);
+  padding:0 24px;
+  position:sticky;
+  top:0;
+  background:rgba(7,9,17,.92);
+  backdrop-filter:blur(12px);
+  z-index:100;
+}
+
+.header-inner{
+  max-width:860px;
+  margin:auto;
+  height:64px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.logo-ring{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:2px solid var(--blue);
+  background:var(--bg-subtle);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:13px;
+}
+
+.header-name{
+  font-weight:800;
+}
+
+.header-sep{
+  color:var(--text-dim);
+}
+
+.header-page{
+  color:var(--text-muted);
+}
+
+.page{
+  max-width:860px;
+  margin:auto;
+  padding:64px 24px 120px;
+}
+
+.hero{
+  padding:56px 0 48px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:56px;
+}
+
+.hero-eyebrow{
+  color:var(--blue);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  font-weight:700;
+  margin-bottom:20px;
+}
+
+h1{
+  font-size:clamp(32px,5vw,52px);
+  line-height:1.1;
+  font-weight:900;
+  margin-bottom:20px;
+}
+
+h1 span{
+  color:var(--blue);
+}
+
+.hero-sub{
+  font-size:17px;
+  color:var(--text-muted);
+  max-width:620px;
+  margin-bottom:32px;
+}
+
+.hero-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.badge{
+  padding:6px 14px;
+  border-radius:999px;
+  border:1px solid var(--blue-dim);
+  background:var(--blue-glow);
+  color:var(--text-muted);
+  font-size:13px;
+}
+
+.summary-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:16px;
+  margin-bottom:64px;
+}
+
+.summary-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:24px;
+}
+
+.summary-card h3{
+  margin:12px 0 8px;
+  color:var(--green);
+}
+
+.summary-card p{
+  color:var(--text-muted);
+  font-size:14px;
+}
+
+.section{
+  margin-bottom:56px;
+}
+
+.section-label{
+  color:var(--blue);
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+
+h2{
+  font-size:24px;
+  margin-bottom:20px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+}
+
+p{
+  color:var(--text-muted);
+  margin-bottom:16px;
+}
+
+.detail-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:24px;
+}
+
+.detail-table th{
+  text-align:left;
+  padding:12px;
+  background:var(--bg-subtle);
+  color:var(--text-dim);
+  font-size:12px;
+}
+
+.detail-table td{
+  padding:14px;
+  border-bottom:1px solid var(--border);
+  color:var(--text-muted);
+}
+
+.pill-yes,
+.pill-no{
+  display:inline-block;
+  padding:3px 12px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.pill-yes{
+  background:rgba(78,207,160,.1);
+  border:1px solid rgba(78,207,160,.25);
+  color:var(--green);
+}
+
+.pill-no{
+  background:rgba(43,120,255,.08);
+  border:1px solid var(--blue-dim);
+  color:var(--blue);
+}
+
+.perm-list{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.perm-item{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:18px;
+}
+
+.perm-name{
+  color:var(--blue);
+  font-weight:700;
+  display:block;
+  margin-bottom:8px;
+}
+
+.contact-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:32px;
+}
+
+.contact-card a{
+  color:var(--blue);
+  text-decoration:none;
+}
+
+footer{
+  border-top:1px solid var(--border);
+  text-align:center;
+  padding:32px;
+  color:var(--text-dim);
+}
+
+@media(max-width:600px){
+  .detail-table{
+    display:block;
+    overflow:auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-ring">TMP</div>
+    <span class="header-name">Tab Manager Pro</span>
+    <span class="header-sep">·</span>
+    <span class="header-page">Privacy Policy</span>
+  </div>
+</header>
+
+<main class="page">
+
+<div class="hero">
+  <div class="hero-eyebrow">Privacy Policy</div>
+  <h1>Your tabs stay<br><span>under your control.</span></h1>
+
+  <p class="hero-sub">
+    Tab Manager Pro helps you automatically manage inactive browser tabs using customizable rules while keeping all your data stored locally on your device. We do not collect, sell, or share your personal information.
+  </p>
+
+  <div class="hero-meta">
+    <span class="badge">Last updated: June 2026</span>
+    <span class="badge">Applies to v1.0.0 and above</span>
+    <span class="badge">Privacy-first design</span>
+  </div>
+</div>
+
+<div class="summary-grid">
+  <div class="summary-card">
+    <h3>🔒 No personal data collected</h3>
+    <p>We do not collect your name, email address, passwords, browsing history, or identifying information.</p>
+  </div>
+
+  <div class="summary-card">
+    <h3>💾 Everything stored locally</h3>
+    <p>All rules, analytics, settings, and activity information remain on your device.</p>
+  </div>
+
+  <div class="summary-card">
+    <h3>🚫 No third-party sharing</h3>
+    <p>We never sell, transfer, or share your data with advertisers or analytics providers.</p>
+  </div>
+
+  <div class="summary-card">
+    <h3>⚙️ Full user control</h3>
+    <p>Create, edit, export, disable, or remove all extension data at any time.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Overview</div>
+  <h2>1. Introduction</h2>
+
+  <p>
+    This Privacy Policy describes how Tab Manager Pro ("the Extension"), developed by AZHAR (publisher: AZ&G), handles information when you install and use the extension in Google Chrome or Microsoft Edge.
+  </p>
+
+  <p>
+    Tab Manager Pro automatically manages inactive browser tabs according to user-defined rules. It can close, reload, mute, move, or snooze tabs based on inactivity periods and URL matching rules while providing analytics and memory insights to help optimize browser performance.
+  </p>
+
+  <p>
+    By installing or using the Extension, you agree to this Privacy Policy.
+  </p>
+</div>
+
+<div class="section">
+  <div class="section-label">Data</div>
+  <h2>2. What Data Is Collected</h2>
+
+  <table class="detail-table">
+    <tr>
+      <th>Data Type</th>
+      <th>Collected?</th>
+      <th>Details</th>
+    </tr>
+    <tr>
+      <td>Personal Identity</td>
+      <td><span class="pill-no">Never</span></td>
+      <td>Names, emails, phone numbers and addresses are never collected.</td>
+    </tr>
+    <tr>
+      <td>Passwords & Credentials</td>
+      <td><span class="pill-no">Never</span></td>
+      <td>Passwords, tokens and form data are never accessed.</td>
+    </tr>
+    <tr>
+      <td>Tab URLs</td>
+      <td><span class="pill-yes">Local Only</span></td>
+      <td>URLs are processed locally to match rules and are never transmitted.</td>
+    </tr>
+    <tr>
+      <td>Analytics</td>
+      <td><span class="pill-yes">Local Only</span></td>
+      <td>Tabs closed, warnings sent and statistics remain on your device.</td>
+    </tr>
+    <tr>
+      <td>Memory Statistics</td>
+      <td><span class="pill-yes">Local Only</span></td>
+      <td>Tab memory information is processed locally.</td>
+    </tr>
+    <tr>
+      <td>IP Address / Location</td>
+      <td><span class="pill-no">Never</span></td>
+      <td>The extension never accesses your location or IP address.</td>
+    </tr>
+  </table>
+</div>
+
+<div class="section">
+  <div class="section-label">Permissions</div>
+  <h2>3. Permissions Explained</h2>
+
+  <ul class="perm-list">
+    <li class="perm-item">
+      <span class="perm-name">storage</span>
+      Stores rules, analytics, schedules and settings locally.
+    </li>
+
+    <li class="perm-item">
+      <span class="perm-name">tabs</span>
+      Allows monitoring of inactivity and performing configured actions.
+    </li>
+
+    <li class="perm-item">
+      <span class="perm-name">notifications</span>
+      Displays warning and closure notifications.
+    </li>
+
+    <li class="perm-item">
+      <span class="perm-name">alarms</span>
+      Schedules inactivity checks and pause windows.
+    </li>
+
+    <li class="perm-item">
+      <span class="perm-name">idle</span>
+      Supports Idle-Only mode.
+    </li>
+
+    <li class="perm-item">
+      <span class="perm-name">tabGroups</span>
+      Allows moving tabs into custom groups.
+    </li>
+
+    <li class="perm-item">
+      <span class="perm-name">browsingData</span>
+      Enables cache, cookies and storage cleanup tools.
+    </li>
+  </ul>
+</div>
+
+<div class="section">
+  <div class="section-label">Storage</div>
+  <h2>4. Data Storage & Retention</h2>
+
+  <p>All extension data is stored exclusively using chrome.storage.local and remains on your device.</p>
+
+  <p>The following information may be stored locally:</p>
+
+  <ul style="padding-left:24px;color:var(--text-muted);">
+    <li>URL matching rules and configurations</li>
+    <li>Notification settings and pause schedules</li>
+    <li>Close history and analytics statistics</li>
+    <li>Memory monitoring information</li>
+    <li>Snoozed tab information</li>
+    <li>User preferences and extension settings</li>
+  </ul>
+</div>
+
+<div class="section">
+  <div class="section-label">Children</div>
+  <h2>5. Children's Privacy</h2>
+
+  <p>Tab Manager Pro does not knowingly collect information from children under the age of 13.</p>
+</div>
+
+<div class="section">
+  <div class="section-label">Updates</div>
+  <h2>6. Changes to This Policy</h2>
+
+  <p>
+    If this Privacy Policy is updated, the revised version will be published at this URL and the "Last updated" date will be changed accordingly.
+  </p>
+</div>
+
+<div class="section">
+  <div class="section-label">Contact</div>
+  <h2>7. Contact</h2>
+
+  <div class="contact-card">
+    <h3>MD AZHAR</h3>
+    <p>Developer — Tab Manager Pro</p>
+    <p>Email: <a href="mailto:azhardev@outlook.com">azhardev@outlook.com</a></p>
+    <p>Website: <a href="https://www.icecampus.in">www.icecampus.in</a></p>
+    <p>Publisher: AZ&G</p>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <p>© 2026 AZ&G — MD AZHAR. All rights reserved.</p>
+  <p>This policy applies to the Tab Manager Pro browser extension available on the Chrome Web Store and Microsoft Edge Add-ons.</p>
+</footer>
+
+</body>
+</html>
