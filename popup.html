@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <title>Tab Manager Pro</title>
 <style>
-/* ═══════════════ RESET + VARS ═══════════════ */
+/* ═══════════════ RESET + VARS (DARK — default) ═══════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --navy:#1B2A4A;--navy2:#0D1829;--navy3:#243460;
@@ -13,17 +13,38 @@
   --bg:#0C1322;--bg2:#111D30;--bg3:#172038;--bg4:#1C2840;--bg5:#233050;
   --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
   --text:#E8EEF8;--text2:#A8B8D0;--text3:#6A7D9A;
+  --input-bg:rgba(0,0,0,.4);--input-border:rgba(255,255,255,.12);
+  --prog-track:rgba(255,255,255,.05);
   --font:'Segoe UI',system-ui,-apple-system,sans-serif;
   --r:8px;--r2:5px;
 }
-body{font-family:var(--font);background:var(--bg);color:var(--text);width:420px;overflow-x:hidden;font-size:12px;line-height:1.4}
 
-/* ═══════════════ SCROLLBAR ══════════════════ */
+/* ═══════════════ LIGHT THEME ═══════════════ */
+body.light{
+  --bg:#F0F5FB;--bg2:#E5EDF7;--bg3:#FFFFFF;--bg4:#F5F8FC;--bg5:#EBF2FA;
+  --border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.15);
+  --text:#1A2638;--text2:#2D4060;--text3:#5A6E88;
+  --input-bg:rgba(255,255,255,0.85);--input-border:rgba(0,0,0,.18);
+  --prog-track:rgba(0,0,0,.07);
+}
+body.light ::-webkit-scrollbar-thumb{background:rgba(0,0,0,.18)}
+body.light .fi{background:var(--input-bg);color:var(--text);border-color:var(--input-border)}
+body.light select.fi option{background:#fff;color:#1A2638}
+body.light input[type="range"]{background:rgba(0,0,0,.12)}
+body.light input[type="time"]{background:var(--input-bg);color:var(--text);border-color:var(--input-border)}
+body.light .tc-prog{background:var(--prog-track)}
+body.light .mem-bar-wrap{background:var(--prog-track)}
+body.light .snooze-menu{background:var(--bg5)}
+body.light .toast{background:var(--bg3);border-color:rgba(232,119,34,.4);color:var(--orange)}
+
+/* ═══════════════ SCROLLBAR ═══════════════ */
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px}
 
-/* ═══════════════ BANNER ═════════════════════ */
+body{font-family:var(--font);background:var(--bg);color:var(--text);width:420px;overflow-x:hidden;font-size:12px;line-height:1.4}
+
+/* ═══════════════ BANNER ═══════════════ */
 .banner{
   background:linear-gradient(135deg,var(--navy2) 0%,var(--navy) 50%,#1A1040 100%);
   border-bottom:2px solid var(--orange);position:relative;overflow:hidden;
@@ -47,8 +68,17 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);width:420px;
   background:linear-gradient(90deg,#fff 50%,var(--orange2));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
 }
-.banner-sub{font-size:10px;color:var(--text3);margin-top:1px}
+.banner-sub{font-size:10px;color:rgba(255,255,255,.4);margin-top:1px}
 .banner-controls{display:flex;align-items:center;gap:6px}
+
+/* Theme toggle */
+.theme-btn{
+  display:flex;align-items:center;justify-content:center;
+  width:26px;height:26px;border-radius:8px;cursor:pointer;font-size:13px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
+  transition:background .15s;flex-shrink:0;
+}
+.theme-btn:hover{background:rgba(255,255,255,.14)}
 
 /* Master toggle pill */
 .mtoggle{
@@ -61,64 +91,43 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);width:420px;
 .mtoggle.on{border-color:rgba(34,197,94,.4)}
 .mdot{width:8px;height:8px;border-radius:50%;background:var(--red);transition:background .2s}
 .mtoggle.on .mdot{background:var(--green);animation:glow 2s infinite}
-.mlabel{font-size:10px;font-weight:700;color:var(--text3);transition:color .2s}
+.mlabel{font-size:10px;font-weight:700;color:rgba(255,255,255,.4);transition:color .2s}
 .mtoggle.on .mlabel{color:var(--green)}
 @keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}50%{box-shadow:0 0 0 5px rgba(34,197,94,0)}}
 
-/* Pause badge */
 .pause-badge{
   font-size:9px;font-weight:700;padding:3px 7px;border-radius:10px;
   background:rgba(245,158,11,.15);color:var(--yellow);border:1px solid rgba(245,158,11,.3);
 }
-
-/* Status strip */
-.status-strip{
-  display:flex;align-items:center;gap:8px;
-  padding:5px 14px 10px;position:relative;z-index:1;
-}
-.sstat{
-  display:flex;align-items:center;gap:4px;
-  font-size:10px;color:var(--text3);
-}
+.status-strip{display:flex;align-items:center;gap:8px;padding:5px 14px 10px;position:relative;z-index:1}
+.sstat{display:flex;align-items:center;gap:4px;font-size:10px;color:rgba(255,255,255,.35)}
 .sstat-num{font-weight:700;color:var(--orange);font-size:11px}
-.sdot{width:5px;height:5px;border-radius:50%;background:var(--border2)}
+.sdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.1)}
 
-/* ═══════════════ STATS ROW ══════════════════ */
-.stats-row{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  background:var(--bg2);border-bottom:1px solid var(--border);
-}
-.sbox{
-  text-align:center;padding:9px 4px;
-  border-right:1px solid var(--border);cursor:default;
-  transition:background .15s;
-}
+/* ═══════════════ STATS ROW ═══════════════ */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);background:var(--bg2);border-bottom:1px solid var(--border)}
+.sbox{text-align:center;padding:9px 4px;border-right:1px solid var(--border);cursor:default;transition:background .15s}
 .sbox:last-child{border-right:none}
 .sbox:hover{background:rgba(232,119,34,.05)}
 .snum{font-size:17px;font-weight:800;color:var(--orange);line-height:1}
 .slabel{font-size:9px;color:var(--text3);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
 
-/* ═══════════════ NAV ════════════════════════ */
+/* ═══════════════ NAV ═══════════════ */
 .nav{display:flex;background:var(--bg2);border-bottom:1px solid var(--border)}
 .nb{
   flex:1;padding:7px 1px;text-align:center;font-size:9px;font-weight:600;
   color:var(--text3);cursor:pointer;border:none;background:none;
-  border-bottom:2px solid transparent;transition:color .15s,border-color .15s;
-  letter-spacing:.2px;
+  border-bottom:2px solid transparent;transition:color .15s,border-color .15s;letter-spacing:.2px;
 }
 .nb.active{color:var(--orange);border-bottom-color:var(--orange)}
 .nb:hover:not(.active){color:var(--text)}
 .nb .ic{display:block;font-size:13px;margin-bottom:2px}
 
-/* ═══════════════ PANELS ═════════════════════ */
+/* ═══════════════ PANELS ═══════════════ */
 .panel{display:none;max-height:380px;overflow-y:auto;padding:10px}
 .panel.active{display:block}
 
-/* Section header */
-.sh{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:8px;
-}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .sh-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--orange)}
 .sh-btn{
   font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;
@@ -131,18 +140,13 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);width:420px;
 .sh-btn.red{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.2);color:var(--red)}
 .sh-btn.red:hover{background:rgba(239,68,68,.2)}
 
-/* ═══════════════ TAB CARDS ══════════════════ */
+/* ═══════════════ TAB CARDS ═══════════════ */
 .tab-list{display:flex;flex-direction:column;gap:6px}
-
-.tc{
-  background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);
-  overflow:hidden;transition:border-color .15s;
-}
+.tc{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:border-color .15s}
 .tc:hover{border-color:rgba(232,119,34,.25)}
 .tc.matched{border-left:3px solid var(--orange)}
 .tc.snoozed{border-left:3px solid var(--yellow);opacity:.8}
 .tc.unmatched{opacity:.55}
-
 .tc-head{display:flex;align-items:center;gap:8px;padding:8px 10px}
 .tc-fav{
   width:26px;height:26px;border-radius:5px;flex-shrink:0;
@@ -153,24 +157,15 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);width:420px;
 .tc-info{flex:1;min-width:0}
 .tc-title{font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tc-url{font-size:9px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
-
-/* Progress bar */
-.tc-prog{height:2px;background:rgba(255,255,255,.05);margin:0 10px 0}
+.tc-prog{height:2px;background:var(--prog-track);margin:0 10px 0}
 .tc-prog-bar{height:100%;border-radius:1px;transition:width .5s linear}
-
-/* Meta row */
 .tc-meta{display:flex;align-items:center;gap:5px;padding:5px 10px 7px}
-.badge{
-  font-size:8px;font-weight:700;padding:1px 5px;border-radius:8px;
-  text-transform:uppercase;letter-spacing:.3px;flex-shrink:0;
-}
+.badge{font-size:8px;font-weight:700;padding:1px 5px;border-radius:8px;text-transform:uppercase;letter-spacing:.3px;flex-shrink:0}
 .b-active{background:rgba(34,197,94,.12);color:var(--green)}
 .b-idle{background:rgba(245,158,11,.12);color:var(--yellow)}
 .b-snoozed{background:rgba(245,158,11,.12);color:var(--yellow)}
 .b-rule{background:rgba(232,119,34,.12);color:var(--orange)}
 .tc-time{font-size:9px;color:var(--text3);flex:1;text-align:right}
-
-/* Action strip */
 .tc-actions{display:flex;gap:3px;align-items:center;padding:0 8px 7px}
 .ab{
   flex:1;padding:4px 2px;font-size:9px;font-weight:600;text-align:center;
@@ -183,36 +178,21 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);width:420px;
 .ab.reset:hover{background:rgba(34,197,94,.1);color:var(--green);border-color:rgba(34,197,94,.3)}
 .ab.snooze:hover{background:rgba(245,158,11,.1);color:var(--yellow);border-color:rgba(245,158,11,.3)}
 .ab.close:hover{background:rgba(239,68,68,.1);color:var(--red);border-color:rgba(239,68,68,.3)}
-
 .empty-state{text-align:center;padding:28px 20px}
 .ei{font-size:30px;margin-bottom:8px}
 .et{font-size:12px;font-weight:600;margin-bottom:4px}
 .es{font-size:10px;color:var(--text3)}
 
-/* ═══════════════ SNOOZE MENU ════════════════ */
-.snooze-menu{
-  background:var(--bg4);border:1px solid var(--border2);border-radius:var(--r);
-  padding:6px;display:none;margin:0 8px 6px;
-}
+/* ═══════════════ SNOOZE MENU ═══════════════ */
+.snooze-menu{background:var(--bg4);border:1px solid var(--border2);border-radius:var(--r);padding:6px;display:none;margin:0 8px 6px}
 .snooze-menu.open{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
-.sopt{
-  padding:5px;text-align:center;font-size:9px;font-weight:600;
-  border-radius:4px;background:rgba(245,158,11,.1);
-  border:1px solid rgba(245,158,11,.2);color:var(--yellow);cursor:pointer;
-  transition:background .15s;
-}
+.sopt{padding:5px;text-align:center;font-size:9px;font-weight:600;border-radius:4px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);color:var(--yellow);cursor:pointer;transition:background .15s}
 .sopt:hover{background:rgba(245,158,11,.2)}
 
-/* ═══════════════ RULES PANEL ════════════════ */
-.rule-card{
-  background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);
-  margin-bottom:8px;overflow:hidden;
-}
+/* ═══════════════ RULES ═══════════════ */
+.rule-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);margin-bottom:8px;overflow:hidden}
 .rule-card.disabled{opacity:.5}
-.rule-head{
-  display:flex;align-items:center;gap:8px;padding:9px 10px;cursor:pointer;
-  transition:background .15s;
-}
+.rule-head{display:flex;align-items:center;gap:8px;padding:9px 10px;cursor:pointer;transition:background .15s}
 .rule-head:hover{background:rgba(255,255,255,.03)}
 .rule-color-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .rule-name-wrap{flex:1;min-width:0}
@@ -221,35 +201,23 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);width:420px;
 .rule-badges{display:flex;gap:4px;flex-shrink:0}
 .rb{font-size:8px;font-weight:700;padding:1px 5px;border-radius:6px;background:var(--bg5);color:var(--text3)}
 .rule-toggle-wrap{display:flex;gap:5px;align-items:center}
-
-/* Rule editor (accordion) */
 .rule-body{display:none;border-top:1px solid var(--border);padding:10px}
 .rule-body.open{display:block}
-
 .field-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .fl{flex:1;min-width:0}
-.fl label{display:block;font-size:9px;font-weight:700;text-transform:uppercase;
-  letter-spacing:.5px;color:var(--text3);margin-bottom:4px}
+.fl label{display:block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:4px}
 .fi{
-  width:100%;background:rgba(0,0,0,.4);border:1px solid var(--border2);
+  width:100%;background:var(--input-bg);border:1px solid var(--input-border);
   border-radius:var(--r2);padding:5px 8px;color:var(--text);
   font-size:11px;font-family:var(--font);outline:none;transition:border-color .15s;
 }
 .fi:focus{border-color:var(--orange)}
 select.fi option{background:var(--bg3)}
-
 .color-row{display:flex;gap:5px;flex-wrap:wrap}
-.cc{
-  width:20px;height:20px;border-radius:50%;border:2px solid transparent;cursor:pointer;
-  transition:transform .15s,border-color .15s;
-}
+.cc{width:20px;height:20px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:transform .15s,border-color .15s}
 .cc:hover,.cc.sel{transform:scale(1.2);border-color:#fff}
-
 .rule-actions{display:flex;gap:6px;margin-top:10px}
-.ra{
-  flex:1;padding:6px;text-align:center;font-size:10px;font-weight:700;
-  border-radius:5px;border:none;cursor:pointer;transition:all .15s;
-}
+.ra{flex:1;padding:6px;text-align:center;font-size:10px;font-weight:700;border-radius:5px;border:none;cursor:pointer;transition:all .15s}
 .ra.save{background:var(--orange);color:#fff}
 .ra.save:hover{background:var(--orange2)}
 .ra.del{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);color:var(--red)}
@@ -257,99 +225,67 @@ select.fi option{background:var(--bg3)}
 .ra.dup{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);color:var(--blue)}
 .ra.dup:hover{background:rgba(59,130,246,.2)}
 
-/* ═══════════════ SETTINGS PANEL ════════════════ */
-.sg{
-  background:var(--bg3);border:1px solid var(--border);
-  border-radius:var(--r);overflow:hidden;margin-bottom:10px;
-}
-.sg-title{
-  font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;
-  color:var(--orange);padding:8px 12px;border-bottom:1px solid var(--border);
-  background:rgba(232,119,34,.04);
-}
-.sr{
-  display:flex;align-items:center;gap:10px;padding:9px 12px;
-  border-bottom:1px solid var(--border);
-}
+/* ═══════════════ SETTINGS ═══════════════ */
+.sg{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:10px}
+.sg-title{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--orange);padding:8px 12px;border-bottom:1px solid var(--border);background:rgba(232,119,34,.04)}
+.sr{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--border)}
 .sr:last-child{border-bottom:none}
 .srl{flex:1;min-width:0}
 .srn{font-size:11px;font-weight:600}
 .srd{font-size:9px;color:var(--text3);margin-top:2px}
-
-/* Toggle */
 .tog{position:relative;width:36px;height:19px;flex-shrink:0}
 .tog input{opacity:0;width:0;height:0;position:absolute}
-.tr{
-  position:absolute;inset:0;border-radius:10px;
-  background:rgba(255,255,255,.08);border:1px solid var(--border2);
-  cursor:pointer;transition:background .2s,border-color .2s;
-}
-.tr::after{
-  content:'';position:absolute;top:2px;left:2px;
-  width:13px;height:13px;border-radius:50%;
-  background:var(--text3);transition:transform .2s,background .2s;
-}
+.tr{position:absolute;inset:0;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid var(--border2);cursor:pointer;transition:background .2s,border-color .2s}
+.tr::after{content:'';position:absolute;top:2px;left:2px;width:13px;height:13px;border-radius:50%;background:var(--text3);transition:transform .2s,background .2s}
 .tog input:checked+.tr{background:rgba(232,119,34,.25);border-color:rgba(232,119,34,.5)}
 .tog input:checked+.tr::after{transform:translateX(17px);background:var(--orange)}
-
-/* Slider */
 .sl-wrap{display:flex;align-items:center;gap:7px;flex-shrink:0}
 .sl-val{min-width:38px;text-align:right;font-size:11px;font-weight:700;color:var(--orange)}
-input[type="range"]{
-  -webkit-appearance:none;appearance:none;
-  width:90px;height:3px;border-radius:2px;
-  background:rgba(255,255,255,.1);outline:none;cursor:pointer;flex-shrink:0;
-}
-input[type="range"]::-webkit-slider-thumb{
-  -webkit-appearance:none;width:13px;height:13px;border-radius:50%;
-  background:var(--orange);cursor:pointer;
-  box-shadow:0 0 0 3px rgba(232,119,34,.2);
-}
-
-/* Time inputs */
+input[type="range"]{-webkit-appearance:none;appearance:none;width:90px;height:3px;border-radius:2px;background:rgba(255,255,255,.1);outline:none;cursor:pointer;flex-shrink:0}
+input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--orange);cursor:pointer;box-shadow:0 0 0 3px rgba(232,119,34,.2)}
 .time-row{display:flex;align-items:center;gap:6px}
-input[type="time"]{
-  background:rgba(0,0,0,.4);border:1px solid var(--border2);border-radius:var(--r2);
-  padding:4px 7px;color:var(--text);font-size:11px;outline:none;
-  transition:border-color .15s;
-}
+input[type="time"]{background:rgba(0,0,0,.4);border:1px solid var(--border2);border-radius:var(--r2);padding:4px 7px;color:var(--text);font-size:11px;outline:none;transition:border-color .15s}
 input[type="time"]:focus{border-color:var(--orange)}
-
-.save-btn{
-  width:100%;padding:10px;border:none;border-radius:var(--r);
-  background:linear-gradient(90deg,var(--orangeD),var(--orange),var(--orange2));
-  color:#fff;font-size:12px;font-weight:800;letter-spacing:.4px;
-  cursor:pointer;transition:opacity .15s,transform .1s;margin-top:4px;
-}
+.save-btn{width:100%;padding:10px;border:none;border-radius:var(--r);background:linear-gradient(90deg,var(--orangeD),var(--orange),var(--orange2));color:#fff;font-size:12px;font-weight:800;letter-spacing:.4px;cursor:pointer;transition:opacity .15s,transform .1s;margin-top:4px}
 .save-btn:hover{opacity:.9}
 .save-btn:active{transform:scale(.98)}
 
-/* ═══════════════ ANALYTICS ══════════════════ */
-.chart-wrap{
-  background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);
-  padding:10px;margin-bottom:10px;
-}
+/* ═══════════════ ANALYTICS ═══════════════ */
+.chart-wrap{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:10px;margin-bottom:10px}
 .chart-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--orange);margin-bottom:8px}
 .an-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
-.an-box{
-  background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);
-  padding:10px;text-align:center;
-}
+.an-box{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:10px;text-align:center}
 .an-num{font-size:22px;font-weight:800;color:var(--orange)}
 .an-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
 
+/* History items — clickable to reopen */
 .hist-item{
-  display:flex;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);
-  align-items:flex-start;
+  display:flex;gap:8px;padding:7px 6px;border-bottom:1px solid var(--border);
+  align-items:center;cursor:pointer;border-radius:5px;
+  transition:background .12s;
 }
 .hist-item:last-child{border-bottom:none}
-.hist-ic{font-size:12px;flex-shrink:0}
+.hist-item:hover{background:rgba(232,119,34,.07)}
+.hist-ic{
+  width:22px;height:22px;border-radius:5px;flex-shrink:0;
+  background:var(--bg4);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:11px;overflow:hidden;
+}
+.hist-ic img{width:14px;height:14px;object-fit:contain}
 .hist-info{flex:1;min-width:0}
 .hist-title{font-size:10px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hist-url{font-size:9px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.hist-time{font-size:9px;color:var(--text3);flex-shrink:0}
+.hist-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0}
+.hist-time{font-size:9px;color:var(--text3)}
+.hist-reopen{
+  font-size:8px;font-weight:700;padding:1px 5px;border-radius:4px;
+  background:rgba(232,119,34,.1);border:1px solid rgba(232,119,34,.25);
+  color:var(--orange);opacity:0;transition:opacity .15s;pointer-events:none;
+  white-space:nowrap;
+}
+.hist-item:hover .hist-reopen{opacity:1}
 
-/* ═══════════════ TOAST ══════════════════════ */
+/* ═══════════════ TOAST ═══════════════ */
 .toast{
   position:fixed;bottom:8px;left:50%;transform:translateX(-50%) translateY(20px);
   background:var(--bg4);border:1px solid rgba(232,119,34,.5);
@@ -358,16 +294,10 @@ input[type="time"]:focus{border-color:var(--orange)}
 }
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-
-/* ═══════════════ MEMORY PANEL ═══════════════ */
-.mem-card{
-  background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);
-  margin-bottom:6px;overflow:hidden;
-}
+/* ═══════════════ MEMORY ═══════════════ */
+.mem-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);margin-bottom:6px;overflow:hidden}
 .mem-head{display:flex;align-items:center;gap:8px;padding:8px 10px}
-.mem-fav{width:24px;height:24px;border-radius:4px;background:var(--bg4);
-  border:1px solid var(--border);display:flex;align-items:center;justify-content:center;
-  font-size:12px;flex-shrink:0;overflow:hidden}
+.mem-fav{width:24px;height:24px;border-radius:4px;background:var(--bg4);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;overflow:hidden}
 .mem-fav img{width:14px;height:14px;object-fit:contain}
 .mem-info{flex:1;min-width:0}
 .mem-title{font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -375,44 +305,32 @@ input[type="time"]:focus{border-color:var(--orange)}
 .mem-usage{text-align:right;flex-shrink:0}
 .mem-num{font-size:13px;font-weight:700;color:var(--orange)}
 .mem-sub{font-size:9px;color:var(--text3)}
-.mem-bar-wrap{height:3px;background:rgba(255,255,255,.06);margin:0 10px 4px}
+.mem-bar-wrap{height:3px;background:var(--prog-track);margin:0 10px 4px}
 .mem-bar{height:100%;border-radius:2px;transition:width .4s}
 .mem-actions{display:flex;gap:3px;padding:0 8px 8px}
-.mc-btn{
-  flex:1;padding:4px 2px;font-size:9px;font-weight:600;text-align:center;
-  border-radius:4px;border:1px solid var(--border);background:rgba(255,255,255,.03);
-  color:var(--text3);cursor:pointer;transition:all .15s;
-}
+.mc-btn{flex:1;padding:4px 2px;font-size:9px;font-weight:600;text-align:center;border-radius:4px;border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--text3);cursor:pointer;transition:all .15s}
 .mc-btn:hover{background:rgba(232,119,34,.12);color:var(--orange);border-color:rgba(232,119,34,.3)}
 .mc-btn.danger:hover{background:rgba(239,68,68,.1);color:var(--red);border-color:rgba(239,68,68,.3)}
-.mem-growth{
-  display:inline-flex;align-items:center;gap:3px;
-  font-size:9px;font-weight:700;padding:1px 5px;border-radius:6px;
-  margin-left:4px;
-}
+.mem-growth{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;padding:1px 5px;border-radius:6px;margin-left:4px}
 .mem-growth.up{background:rgba(239,68,68,.12);color:var(--red)}
 .mem-growth.stable{background:rgba(34,197,94,.12);color:var(--green)}
-
-/* ═══════════════ MISC ═══════════════════════ */
 .divider{height:1px;background:var(--border);margin:8px 0}
-.pill{
-  display:inline-flex;align-items:center;gap:4px;
-  padding:2px 7px;border-radius:10px;font-size:9px;font-weight:600;
-}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:2px 7px;border-radius:10px;font-size:9px;font-weight:600}
 </style>
 </head>
 <body>
 
-<!-- ═══ BANNER ═════════════════════════════════════════════════════ -->
+<!-- ═══ BANNER ═══════════════════════════════════════════════════════ -->
 <div class="banner">
   <div class="banner-top">
-    <div class="logo"><img src="icon.png" alt=""/></div>
+    <div class="logo"><img id="logo-img" src="icon128.png" alt=""/></div>
     <div class="banner-info">
       <div class="banner-title">Tab Manager Pro</div>
       <div class="banner-sub" id="sub">Monitoring 0 rules across 0 tabs</div>
     </div>
     <div class="banner-controls">
       <div class="pause-badge" id="pause-badge" style="display:none">⏸ PAUSED</div>
+      <button class="theme-btn" id="btn-theme" title="Toggle light/dark theme">☀️</button>
       <div class="mtoggle on" id="mtoggle">
         <div class="mdot"></div>
         <span class="mlabel">ON</span>
@@ -466,24 +384,15 @@ input[type="time"]:focus{border-color:var(--orange)}
     <button class="sh-btn" id="btn-add-rule">＋ Add Rule</button>
   </div>
   <div id="rule-list"></div>
-
-  <!-- New / edit rule form -->
   <div id="rule-form" style="display:none">
     <div class="rule-card">
       <div class="rule-body open">
         <div class="field-row">
-          <div class="fl">
-            <label>Rule Name</label>
-            <input class="fi" id="rf-name" placeholder="e.g. Support Portal"/>
-          </div>
+          <div class="fl"><label>Rule Name</label><input class="fi" id="rf-name" placeholder="e.g. Support Portal"/></div>
         </div>
         <div class="field-row">
-          <div class="fl">
-            <label>URL Pattern</label>
-            <input class="fi" id="rf-pattern" placeholder="e.g. support.sergas.com"/>
-          </div>
-          <div class="fl">
-            <label>Match Type</label>
+          <div class="fl"><label>URL Pattern</label><input class="fi" id="rf-pattern" placeholder="e.g. support.sergas.com"/></div>
+          <div class="fl"><label>Match Type</label>
             <select class="fi" id="rf-matchtype">
               <option value="contains">Contains</option>
               <option value="startsWith">Starts With</option>
@@ -493,18 +402,11 @@ input[type="time"]:focus{border-color:var(--orange)}
           </div>
         </div>
         <div class="field-row">
-          <div class="fl">
-            <label>Timeout (minutes)</label>
-            <input class="fi" id="rf-timeout" type="number" min="1" max="1440" value="10"/>
-          </div>
-          <div class="fl">
-            <label>Priority (higher = first)</label>
-            <input class="fi" id="rf-priority" type="number" min="1" max="100" value="1"/>
-          </div>
+          <div class="fl"><label>Timeout (minutes)</label><input class="fi" id="rf-timeout" type="number" min="1" max="1440" value="10"/></div>
+          <div class="fl"><label>Priority (higher = first)</label><input class="fi" id="rf-priority" type="number" min="1" max="100" value="1"/></div>
         </div>
         <div class="field-row">
-          <div class="fl">
-            <label>Action on Timeout</label>
+          <div class="fl"><label>Action on Timeout</label>
             <select class="fi" id="rf-action">
               <option value="close">Close Tab</option>
               <option value="reload">Reload Tab</option>
@@ -512,16 +414,10 @@ input[type="time"]:focus{border-color:var(--orange)}
               <option value="group">Group Tab</option>
             </select>
           </div>
-          <div class="fl">
-            <label>Close After N Visits (0=off)</label>
-            <input class="fi" id="rf-visits" type="number" min="0" max="999" value="0"/>
-          </div>
+          <div class="fl"><label>Close After N Visits (0=off)</label><input class="fi" id="rf-visits" type="number" min="0" max="999" value="0"/></div>
         </div>
         <div class="field-row" id="rf-group-row" style="display:none">
-          <div class="fl">
-            <label>Group Name</label>
-            <input class="fi" id="rf-groupname" placeholder="Inactive"/>
-          </div>
+          <div class="fl"><label>Group Name</label><input class="fi" id="rf-groupname" placeholder="Inactive"/></div>
         </div>
         <div style="margin-bottom:8px">
           <label style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);display:block;margin-bottom:6px">Rule Color</label>
@@ -548,7 +444,6 @@ input[type="time"]:focus{border-color:var(--orange)}
 
 <!-- ═══ PANEL: SETTINGS ══════════════════════════════════════════ -->
 <div class="panel" id="panel-settings">
-
   <div class="sg">
     <div class="sg-title">⏱ Timing</div>
     <div class="sr">
@@ -568,7 +463,6 @@ input[type="time"]:focus{border-color:var(--orange)}
       <div class="sl-wrap"><input type="range" id="s-idle" min="30" max="600" step="30" value="60"/><div class="sl-val"><span id="sv-idle">60</span>s</div></div>
     </div>
   </div>
-
   <div class="sg">
     <div class="sg-title">🎛 Behaviour</div>
     <div class="sr">
@@ -588,7 +482,6 @@ input[type="time"]:focus{border-color:var(--orange)}
       <label class="tog"><input type="checkbox" id="s-badge" checked/><span class="tr"></span></label>
     </div>
   </div>
-
   <div class="sg">
     <div class="sg-title">🔔 Notifications</div>
     <div class="sr">
@@ -600,7 +493,6 @@ input[type="time"]:focus{border-color:var(--orange)}
       <label class="tog"><input type="checkbox" id="s-notifywarn" checked/><span class="tr"></span></label>
     </div>
   </div>
-
   <div class="sg">
     <div class="sg-title">📅 Pause Schedule</div>
     <div class="sr">
@@ -612,11 +504,10 @@ input[type="time"]:focus{border-color:var(--orange)}
       </div>
     </div>
   </div>
-
   <button class="save-btn" id="save-settings">💾 Save All Settings</button>
 </div>
 
-<!-- ═══ PANEL: ANALYTICS ════════════════════════════════════════ -->
+<!-- ═══ PANEL: ANALYTICS ═══════════════════════════════════════ -->
 <div class="panel" id="panel-analytics">
   <div class="sh">
     <span class="sh-title">Session Analytics</span>
@@ -629,15 +520,14 @@ input[type="time"]:focus{border-color:var(--orange)}
     <div class="an-box"><div class="an-num" id="an-snoozed">0</div><div class="an-label">Times Snoozed</div></div>
   </div>
   <div class="chart-wrap">
-    <div class="chart-title">Recent Close History</div>
+    <div class="chart-title">Recent Close History — click any row to reopen</div>
     <div id="hist-list">
       <div class="empty-state" style="padding:14px"><div class="et" style="font-size:11px">No history yet</div></div>
     </div>
   </div>
 </div>
 
-
-<!-- ═══ PANEL: MEMORY & CACHE ══════════════════════════════════ -->
+<!-- ═══ PANEL: MEMORY & CACHE ════════════════════════════════ -->
 <div class="panel" id="panel-memory">
   <div class="sh">
     <span class="sh-title">Memory &amp; Cache</span>
@@ -646,20 +536,15 @@ input[type="time"]:focus{border-color:var(--orange)}
       <button class="sh-btn red" id="btn-clear-all-cache">🗑 Clear All Cache</button>
     </div>
   </div>
-
-  <!-- Memory overview cards -->
   <div id="mem-overview" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px">
     <div class="an-box"><div class="an-num" id="mem-tabs">0</div><div class="an-label">Tracked Tabs</div></div>
     <div class="an-box"><div class="an-num" id="mem-total">–</div><div class="an-label">Total JS Heap</div></div>
     <div class="an-box"><div class="an-num" id="mem-highest">–</div><div class="an-label">Highest Tab</div></div>
   </div>
-
-  <!-- Per-tab memory list -->
   <div id="mem-list"></div>
 </div>
 
 <div class="toast" id="toast"></div>
-
 <script src="popup.js"></script>
 </body>
 </html>
