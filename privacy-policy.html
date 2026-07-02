@@ -265,6 +265,189 @@ footer{
   color:var(--text-dim);
 }
 
+/* ═══════════════════ UI GALLERY ═══════════════════ */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:28px;
+  margin-top:8px;
+}
+.ui-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+.ui-cap{
+  padding:18px 20px 20px;
+  border-top:1px solid var(--border);
+}
+.ui-cap .ui-tag{
+  display:inline-block;
+  font-size:10px;
+  letter-spacing:1.4px;
+  text-transform:uppercase;
+  color:var(--blue);
+  font-weight:700;
+  margin-bottom:8px;
+}
+.ui-cap h3{
+  font-size:16px;
+  margin-bottom:6px;
+  color:var(--text);
+}
+.ui-cap p{
+  font-size:13px;
+  color:var(--text-muted);
+  margin:0;
+}
+.ui-priv{
+  margin-top:10px;
+  font-size:12px;
+  color:var(--green);
+  display:flex;
+  gap:6px;
+  align-items:flex-start;
+}
+.ui-priv::before{content:"🔒";flex-shrink:0}
+
+/* ---- the mock extension frame (mirrors the real 420px popup, scaled) ---- */
+.mock{
+  --mnavy:#1B2A4A;--mnavy2:#0D1829;--morange:#E87722;--morange2:#F5A040;
+  --mgreen:#22C55E;--mred:#EF4444;--myellow:#F59E0B;--mblue:#3B82F6;--mpurple:#8B5CF6;
+  --mbg:#0C1322;--mbg2:#111D30;--mbg3:#172038;--mbg4:#1C2840;
+  --mborder:rgba(255,255,255,.07);--mtext:#E8EEF8;--mtext2:#A8B8D0;--mtext3:#6A7D9A;
+  background:var(--mbg);
+  font-family:'Segoe UI',system-ui,sans-serif;
+  font-size:11px;line-height:1.4;color:var(--mtext);
+  height:300px;overflow:hidden;position:relative;
+}
+.mock *{box-sizing:border-box}
+.m-banner{
+  background:linear-gradient(135deg,var(--mnavy2),var(--mnavy) 55%,#1A1040);
+  border-bottom:2px solid var(--morange);padding:9px 12px;
+  display:flex;align-items:center;gap:8px;
+}
+.m-logo{
+  width:26px;height:26px;border-radius:7px;flex-shrink:0;
+  background:rgba(232,119,34,.12);border:1.5px solid rgba(232,119,34,.4);
+  display:flex;align-items:center;justify-content:center;font-size:13px;
+}
+.m-btitle{font-size:12px;font-weight:800;color:#fff;flex:1}
+.m-mtoggle{
+  display:flex;align-items:center;gap:4px;padding:3px 7px;border-radius:12px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(34,197,94,.4);
+}
+.m-mdot{width:6px;height:6px;border-radius:50%;background:var(--mgreen);animation:mglow 2s infinite}
+@keyframes mglow{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}50%{box-shadow:0 0 0 4px rgba(34,197,94,0)}}
+.m-mlabel{font-size:9px;font-weight:700;color:var(--mgreen)}
+.m-nav{display:flex;background:var(--mbg2);border-bottom:1px solid var(--mborder)}
+.m-nb{
+  flex:1;padding:6px 1px;text-align:center;font-size:8px;font-weight:600;
+  color:var(--mtext3);border-bottom:2px solid transparent;
+}
+.m-nb.on{color:var(--morange);border-bottom-color:var(--morange)}
+.m-nb .mic{display:block;font-size:12px;margin-bottom:1px}
+.m-body{padding:9px;height:calc(300px - 41px - 33px);overflow:hidden}
+
+/* generic mock building blocks */
+.m-row{
+  display:flex;align-items:center;gap:7px;background:var(--mbg3);
+  border:1px solid var(--mborder);border-radius:7px;padding:7px 8px;margin-bottom:6px;
+}
+.m-row.matched{border-left:3px solid var(--morange)}
+.m-row.danger{border-left:3px solid var(--mred)}
+.m-fav{
+  width:22px;height:22px;border-radius:5px;flex-shrink:0;background:var(--mbg4);
+  border:1px solid var(--mborder);display:flex;align-items:center;justify-content:center;font-size:11px;
+}
+.m-info{flex:1;min-width:0}
+.m-t{font-size:10px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-u{font-size:9px;color:var(--mtext3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-badge{font-size:8px;font-weight:800;padding:1px 6px;border-radius:8px;text-transform:uppercase;letter-spacing:.3px}
+.m-b-safe{background:rgba(34,197,94,.14);color:var(--mgreen);border:1px solid rgba(34,197,94,.3)}
+.m-b-caution{background:rgba(245,158,11,.14);color:var(--myellow);border:1px solid rgba(245,158,11,.3)}
+.m-b-danger{background:rgba(239,68,68,.16);color:var(--mred);border:1px solid rgba(239,68,68,.4)}
+.m-b-rule{background:rgba(232,119,34,.14);color:var(--morange)}
+.m-b-active{background:rgba(34,197,94,.12);color:var(--mgreen)}
+.m-prog{height:3px;background:rgba(255,255,255,.06);border-radius:2px;margin-top:6px;overflow:hidden}
+.m-prog-bar{height:100%;border-radius:2px}
+.m-qbar{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:7px}
+.m-qb{font-size:8px;font-weight:600;padding:3px 7px;border-radius:5px;background:var(--mbg3);border:1px solid var(--mborder);color:var(--mtext2)}
+.m-sh{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.m-sh-t{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--morange)}
+.m-sh-btn{font-size:8px;font-weight:600;padding:3px 7px;border-radius:4px;background:rgba(232,119,34,.12);border:1px solid rgba(232,119,34,.25);color:var(--morange)}
+
+/* PROGRESS SWEEP animation (Live Tabs) */
+@keyframes sweepBar{
+  0%{width:100%;background:var(--mgreen)}
+  45%{width:55%;background:var(--myellow)}
+  90%{width:12%;background:var(--mred)}
+  100%{width:12%;background:var(--mred)}
+}
+.anim-sweep{animation:sweepBar 4s ease-in-out infinite}
+
+/* rule color dot pulse */
+.m-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+@keyframes rulePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.35)}}
+.anim-pulse{animation:rulePulse 2.4s ease-in-out infinite}
+
+/* sticker cross-fade (Security safety) */
+@keyframes stickerCycle{
+  0%,26%{opacity:1}33%,100%{opacity:0}
+}
+@keyframes stickerCycle2{
+  0%,26%{opacity:0}33%,59%{opacity:1}66%,100%{opacity:0}
+}
+@keyframes stickerCycle3{
+  0%,59%{opacity:0}66%,92%{opacity:1}100%{opacity:0}
+}
+.sc1{animation:stickerCycle 5s infinite}
+.sc2{animation:stickerCycle2 5s infinite}
+.sc3{animation:stickerCycle3 5s infinite}
+.sc-stack{position:relative;display:inline-block;min-width:66px;height:16px}
+.sc-stack .m-badge{position:absolute;left:0;top:0;white-space:nowrap}
+
+/* shimmer for skeleton/scan lines (History / Memory) */
+@keyframes shimmer{0%{background-position:-200px 0}100%{background-position:200px 0}}
+.shim{
+  background:linear-gradient(90deg,var(--mbg3) 0%,rgba(255,255,255,.06) 50%,var(--mbg3) 100%);
+  background-size:400px 100%;animation:shimmer 1.6s linear infinite;
+}
+
+/* memory bar grow */
+@keyframes memGrow{0%{width:12%}100%{width:88%}}
+.anim-mem{animation:memGrow 3.5s ease-in-out infinite alternate}
+
+/* toggle knob slide (Settings) */
+.m-tog{width:30px;height:16px;border-radius:9px;position:relative;flex-shrink:0;background:rgba(232,119,34,.25);border:1px solid rgba(232,119,34,.5)}
+.m-tog::after{content:"";position:absolute;top:1px;width:11px;height:11px;border-radius:50%;background:var(--morange);animation:togSlide 3s ease-in-out infinite}
+@keyframes togSlide{0%,40%{left:2px;background:var(--mtext3)}60%,100%{left:15px;background:var(--morange)}}
+
+/* stats count-up flicker */
+@keyframes countPulse{0%,100%{opacity:1}50%{opacity:.55}}
+.m-stat-num{font-size:18px;font-weight:800;color:var(--morange);animation:countPulse 2s ease-in-out infinite}
+
+/* bookmark row slide-in (Marks) */
+@keyframes slideIn{0%{opacity:0;transform:translateX(-10px)}100%{opacity:1;transform:translateX(0)}}
+.si1{animation:slideIn .6s ease both}
+.si2{animation:slideIn .6s ease .5s both}
+.si3{animation:slideIn .6s ease 1s both}
+
+/* PIN dots fill (Security lock) */
+@keyframes pinFill{0%,20%{background:transparent}100%{background:var(--morange)}}
+.pin-dot{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--mtext3)}
+.pd1{animation:pinFill 2.5s steps(1) infinite}
+.pd2{animation:pinFill 2.5s steps(1) .35s infinite}
+.pd3{animation:pinFill 2.5s steps(1) .7s infinite}
+.pd4{animation:pinFill 2.5s steps(1) 1.05s infinite}
+
+@media(prefers-reduced-motion:reduce){
+  .mock *{animation:none !important}
+}
+
 @media(max-width:600px){
   .detail-table{
     display:block;
@@ -296,8 +479,8 @@ footer{
   </p>
 
   <div class="hero-meta">
-    <span class="badge">Last updated: June 2026</span>
-    <span class="badge">Applies to v1.0.0 and above</span>
+    <span class="badge">Last updated: July 2026</span>
+    <span class="badge">Applies to v4.0.0 and above</span>
     <span class="badge">Privacy-first design</span>
   </div>
 </div>
@@ -325,6 +508,299 @@ footer{
 </div>
 
 <div class="section">
+  <div class="section-label">Interface</div>
+  <h2>What each screen does</h2>
+  <p>
+    Tab Manager Pro (v4.0.0) has eight panels. Below is an animated preview of every screen so you can see exactly what the extension shows — and, for each, what stays on your device. These are illustrative mockups of the interface; no browsing data is transmitted by any screen.
+  </p>
+
+  <div class="gallery">
+
+    <!-- 1. LIVE TABS -->
+    <div class="ui-card">
+      <div class="mock">
+        <div class="m-banner">
+          <div class="m-logo">🗂️</div><div class="m-btitle">Tab Manager Pro</div>
+          <div class="m-mtoggle"><div class="m-mdot"></div><span class="m-mlabel">ON</span></div>
+        </div>
+        <div class="m-nav">
+          <div class="m-nb on"><span class="mic">📋</span>Tabs</div>
+          <div class="m-nb"><span class="mic">📏</span>Rules</div>
+          <div class="m-nb"><span class="mic">⭐</span>Marks</div>
+          <div class="m-nb"><span class="mic">🕘</span>Hist</div>
+          <div class="m-nb"><span class="mic">🛡️</span>Sec</div>
+        </div>
+        <div class="m-body">
+          <div class="m-qbar">
+            <span class="m-qb">🗂️ Group</span><span class="m-qb">🧹 Dedupe</span><span class="m-qb">💾 Save</span>
+          </div>
+          <div class="m-row matched">
+            <div class="m-fav">📄</div>
+            <div class="m-info">
+              <div class="m-t">Support Portal</div>
+              <div class="m-u">support.sergas.com</div>
+              <div class="m-prog"><div class="m-prog-bar anim-sweep"></div></div>
+            </div>
+          </div>
+          <div class="m-row">
+            <div class="m-fav">🔍</div>
+            <div class="m-info"><div class="m-t">Search results</div><div class="m-u">google.com</div></div>
+            <span class="m-badge m-b-active">● Active</span>
+          </div>
+        </div>
+      </div>
+      <div class="ui-cap">
+        <span class="ui-tag">📋 Live Tabs</span>
+        <h3>Live Tabs</h3>
+        <p>Shows open tabs, which rule matches each, and a countdown bar toward auto-close. Quick actions group, dedupe, or save the session.</p>
+        <div class="ui-priv">Tab titles &amp; URLs are read locally to match rules — never sent anywhere.</div>
+      </div>
+    </div>
+
+    <!-- 2. URL RULES -->
+    <div class="ui-card">
+      <div class="mock">
+        <div class="m-banner">
+          <div class="m-logo">📏</div><div class="m-btitle">URL Rules</div>
+          <div class="m-mtoggle"><div class="m-mdot"></div><span class="m-mlabel">ON</span></div>
+        </div>
+        <div class="m-nav">
+          <div class="m-nb"><span class="mic">📋</span>Tabs</div>
+          <div class="m-nb on"><span class="mic">📏</span>Rules</div>
+          <div class="m-nb"><span class="mic">⭐</span>Marks</div>
+          <div class="m-nb"><span class="mic">🕘</span>Hist</div>
+          <div class="m-nb"><span class="mic">🛡️</span>Sec</div>
+        </div>
+        <div class="m-body">
+          <div class="m-sh"><span class="m-sh-t">URL Rules</span><span class="m-sh-btn">＋ Add Rule</span></div>
+          <div class="m-row">
+            <div class="m-dot anim-pulse" style="background:#E87722"></div>
+            <div class="m-info"><div class="m-t">Support Portal</div><div class="m-u" style="font-family:monospace">support.sergas.com (contains)</div></div>
+            <span class="m-badge" style="background:var(--mbg4);color:var(--mtext3)">10m</span>
+          </div>
+          <div class="m-row">
+            <div class="m-dot anim-pulse" style="background:#3B82F6;animation-delay:.6s"></div>
+            <div class="m-info"><div class="m-t">Social media</div><div class="m-u" style="font-family:monospace">twitter.com (contains)</div></div>
+            <span class="m-badge" style="background:var(--mbg4);color:var(--mtext3)">group</span>
+          </div>
+          <div class="m-row">
+            <div class="m-dot anim-pulse" style="background:#8B5CF6;animation-delay:1.2s"></div>
+            <div class="m-info"><div class="m-t">News sites</div><div class="m-u" style="font-family:monospace">^https://news (regex)</div></div>
+            <span class="m-badge" style="background:var(--mbg4);color:var(--mtext3)">reload</span>
+          </div>
+        </div>
+      </div>
+      <div class="ui-cap">
+        <span class="ui-tag">📏 URL Rules</span>
+        <h3>URL Rules</h3>
+        <p>Define patterns (contains / starts-with / exact / regex), a timeout, priority, and an action — close, reload, mute, or group.</p>
+        <div class="ui-priv">Rules sync via your browser profile only; never uploaded to us.</div>
+      </div>
+    </div>
+
+    <!-- 3. BOOKMARKS -->
+    <div class="ui-card">
+      <div class="mock">
+        <div class="m-banner">
+          <div class="m-logo">⭐</div><div class="m-btitle">Bookmarks</div>
+          <div class="m-mtoggle"><div class="m-mdot"></div><span class="m-mlabel">ON</span></div>
+        </div>
+        <div class="m-nav">
+          <div class="m-nb"><span class="mic">📋</span>Tabs</div>
+          <div class="m-nb"><span class="mic">📏</span>Rules</div>
+          <div class="m-nb on"><span class="mic">⭐</span>Marks</div>
+          <div class="m-nb"><span class="mic">🕘</span>Hist</div>
+          <div class="m-nb"><span class="mic">🛡️</span>Sec</div>
+        </div>
+        <div class="m-body">
+          <div class="m-sh"><span class="m-sh-t">Bookmarks</span><span class="m-sh-btn">⬇ Export</span></div>
+          <div class="m-row si1"><div class="m-fav">⭐</div><div class="m-info"><div class="m-t">GitHub</div><div class="m-u">github.com</div></div></div>
+          <div class="m-row si2"><div class="m-fav">📰</div><div class="m-info"><div class="m-t">Hacker News</div><div class="m-u">news.ycombinator.com</div></div></div>
+          <div class="m-row si3"><div class="m-fav">📚</div><div class="m-info"><div class="m-t">MDN Web Docs</div><div class="m-u">developer.mozilla.org</div></div></div>
+        </div>
+      </div>
+      <div class="ui-cap">
+        <span class="ui-tag">⭐ Bookmarks · NEW</span>
+        <h3>Bookmarks</h3>
+        <p>Add the current tab, filter your bookmarks, and import or export them as a standard HTML file. Click any row to open it.</p>
+        <div class="ui-priv">Managed through Chrome's own bookmark store; exports save straight to a file you pick.</div>
+      </div>
+    </div>
+
+    <!-- 4. HISTORY -->
+    <div class="ui-card">
+      <div class="mock">
+        <div class="m-banner">
+          <div class="m-logo">🕘</div><div class="m-btitle">History</div>
+          <div class="m-mtoggle"><div class="m-mdot"></div><span class="m-mlabel">ON</span></div>
+        </div>
+        <div class="m-nav">
+          <div class="m-nb"><span class="mic">📋</span>Tabs</div>
+          <div class="m-nb"><span class="mic">📏</span>Rules</div>
+          <div class="m-nb"><span class="mic">⭐</span>Marks</div>
+          <div class="m-nb on"><span class="mic">🕘</span>Hist</div>
+          <div class="m-nb"><span class="mic">🛡️</span>Sec</div>
+        </div>
+        <div class="m-body">
+          <div class="m-row" style="padding:5px 8px"><div class="m-info shim" style="height:14px;border-radius:4px">&nbsp;</div></div>
+          <div class="m-row"><div class="m-fav">📄</div><div class="m-info"><div class="m-t">Docs — API reference</div><div class="m-u">docs.example.com · 3m ago</div></div><span class="m-badge m-b-rule" style="opacity:.7">↗</span></div>
+          <div class="m-row"><div class="m-fav">🎬</div><div class="m-info"><div class="m-t">Tutorial video</div><div class="m-u">youtube.com · 1h ago</div></div><span class="m-badge m-b-rule" style="opacity:.7">↗</span></div>
+          <div class="m-row"><div class="m-fav">🛒</div><div class="m-info"><div class="m-t">Order confirmation</div><div class="m-u">shop.example.com · 2h ago</div></div><span class="m-badge m-b-rule" style="opacity:.7">↗</span></div>
+        </div>
+      </div>
+      <div class="ui-cap">
+        <span class="ui-tag">🕘 History · NEW</span>
+        <h3>History</h3>
+        <p>Search your recent browsing and reopen any page with one click, or delete individual entries. Results load as you type.</p>
+        <div class="ui-priv">History is queried on-device via Chrome's API and never leaves your machine.</div>
+      </div>
+    </div>
+
+    <!-- 5. SECURITY -->
+    <div class="ui-card">
+      <div class="mock">
+        <div class="m-banner">
+          <div class="m-logo">🛡️</div><div class="m-btitle">Security</div>
+          <div class="m-mtoggle"><div class="m-mdot"></div><span class="m-mlabel">ON</span></div>
+        </div>
+        <div class="m-nav">
+          <div class="m-nb"><span class="mic">📋</span>Tabs</div>
+          <div class="m-nb"><span class="mic">📏</span>Rules</div>
+          <div class="m-nb"><span class="mic">⭐</span>Marks</div>
+          <div class="m-nb"><span class="mic">🕘</span>Hist</div>
+          <div class="m-nb on"><span class="mic">🛡️</span>Sec</div>
+        </div>
+        <div class="m-body">
+          <div class="m-sh"><span class="m-sh-t">🔐 PIN Lock</span></div>
+          <div class="m-row" style="justify-content:center;gap:10px;padding:9px">
+            <div class="pin-dot pd1"></div><div class="pin-dot pd2"></div><div class="pin-dot pd3"></div><div class="pin-dot pd4"></div>
+          </div>
+          <div class="m-sh" style="margin-top:2px"><span class="m-sh-t">🛡️ Safety Check</span></div>
+          <div class="m-row">
+            <div class="m-fav">🌐</div>
+            <div class="m-info"><div class="m-t">paypal-secure-login.tk</div><div class="m-u">heuristic scan…</div></div>
+            <div class="sc-stack">
+              <span class="m-badge m-b-safe sc1">✓ Safe</span>
+              <span class="m-badge m-b-caution sc2">⚠ Caution</span>
+              <span class="m-badge m-b-danger sc3">⚠ Unsafe</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui-cap">
+        <span class="ui-tag">🛡️ Security · NEW</span>
+        <h3>Security</h3>
+        <p>Set a PIN to lock chosen sites behind an unlock screen, and run a local heuristic safety check that flags spoofed or risky URLs. A recovery question lets you reset a forgotten PIN.</p>
+        <div class="ui-priv">Only a one-way hash of your PIN is stored; safety checks run locally with no reputation feed.</div>
+      </div>
+    </div>
+
+    <!-- 6. SETTINGS -->
+    <div class="ui-card">
+      <div class="mock">
+        <div class="m-banner">
+          <div class="m-logo">⚙️</div><div class="m-btitle">Settings</div>
+          <div class="m-mtoggle"><div class="m-mdot"></div><span class="m-mlabel">ON</span></div>
+        </div>
+        <div class="m-nav">
+          <div class="m-nb"><span class="mic">⚙️</span>Set</div>
+          <div class="m-nb on"><span class="mic">⚙️</span>Settings</div>
+          <div class="m-nb"><span class="mic">📊</span>Stats</div>
+          <div class="m-nb"><span class="mic">🧠</span>Mem</div>
+          <div class="m-nb"><span class="mic">🛡️</span>Sec</div>
+        </div>
+        <div class="m-body">
+          <div class="m-sh"><span class="m-sh-t">⏱ Timing</span></div>
+          <div class="m-row" style="justify-content:space-between"><div class="m-t">Global fallback timeout</div><span class="m-badge m-b-rule">10m</span></div>
+          <div class="m-sh" style="margin-top:2px"><span class="m-sh-t">🎛 Behaviour</span></div>
+          <div class="m-row" style="justify-content:space-between"><div class="m-t">Only close when idle</div><div class="m-tog"></div></div>
+          <div class="m-row" style="justify-content:space-between"><div class="m-t">Show badge count</div><div class="m-tog" style="animation-delay:.5s"></div></div>
+        </div>
+      </div>
+      <div class="ui-cap">
+        <span class="ui-tag">⚙️ Settings</span>
+        <h3>Settings</h3>
+        <p>Tune sweep interval, idle detection, warnings, badge count, and a daily pause window when auto-close is suspended.</p>
+        <div class="ui-priv">Preferences persist locally / via profile sync — nothing is sent to us.</div>
+      </div>
+    </div>
+
+    <!-- 7. STATS / ANALYTICS -->
+    <div class="ui-card">
+      <div class="mock">
+        <div class="m-banner">
+          <div class="m-logo">📊</div><div class="m-btitle">Analytics</div>
+          <div class="m-mtoggle"><div class="m-mdot"></div><span class="m-mlabel">ON</span></div>
+        </div>
+        <div class="m-nav">
+          <div class="m-nb"><span class="mic">⚙️</span>Set</div>
+          <div class="m-nb on"><span class="mic">📊</span>Stats</div>
+          <div class="m-nb"><span class="mic">🧠</span>Mem</div>
+          <div class="m-nb"><span class="mic">🛡️</span>Sec</div>
+          <div class="m-nb"><span class="mic">📋</span>Tabs</div>
+        </div>
+        <div class="m-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
+            <div class="m-row" style="flex-direction:column;gap:2px;text-align:center;margin:0"><div class="m-stat-num">128</div><div class="m-u">Total Closed</div></div>
+            <div class="m-row" style="flex-direction:column;gap:2px;text-align:center;margin:0"><div class="m-stat-num" style="animation-delay:.6s">14</div><div class="m-u">Closed Today</div></div>
+          </div>
+          <div class="m-sh"><span class="m-sh-t">Recent history — click to reopen</span></div>
+          <div class="m-row"><div class="m-fav">🚫</div><div class="m-info"><div class="m-t">Idle report tab</div><div class="m-u">reports.example.com · 5m ago</div></div></div>
+        </div>
+      </div>
+      <div class="ui-cap">
+        <span class="ui-tag">📊 Analytics</span>
+        <h3>Analytics</h3>
+        <p>Session totals for tabs closed, warnings sent, and snoozes, plus a recent close-history you can click to reopen.</p>
+        <div class="ui-priv">All counts and history are stored locally on your device.</div>
+      </div>
+    </div>
+
+    <!-- 8. MEMORY -->
+    <div class="ui-card">
+      <div class="mock">
+        <div class="m-banner">
+          <div class="m-logo">🧠</div><div class="m-btitle">Memory &amp; Cache</div>
+          <div class="m-mtoggle"><div class="m-mdot"></div><span class="m-mlabel">ON</span></div>
+        </div>
+        <div class="m-nav">
+          <div class="m-nb"><span class="mic">⚙️</span>Set</div>
+          <div class="m-nb"><span class="mic">📊</span>Stats</div>
+          <div class="m-nb on"><span class="mic">🧠</span>Memory</div>
+          <div class="m-nb"><span class="mic">🛡️</span>Sec</div>
+          <div class="m-nb"><span class="mic">📋</span>Tabs</div>
+        </div>
+        <div class="m-body">
+          <div class="m-row">
+            <div class="m-fav">🎬</div>
+            <div class="m-info">
+              <div class="m-t">Streaming site <span class="m-badge m-b-danger" style="margin-left:3px">↑ growing</span></div>
+              <div class="m-prog" style="margin-top:5px"><div class="m-prog-bar anim-mem" style="background:#EF4444"></div></div>
+            </div>
+            <div style="text-align:right"><div class="m-t" style="color:var(--morange)">412 MB</div></div>
+          </div>
+          <div class="m-row">
+            <div class="m-fav">📄</div>
+            <div class="m-info">
+              <div class="m-t">Docs</div>
+              <div class="m-prog" style="margin-top:5px"><div class="m-prog-bar" style="width:34%;background:#22C55E"></div></div>
+            </div>
+            <div style="text-align:right"><div class="m-t" style="color:var(--morange)">86 MB</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="ui-cap">
+        <span class="ui-tag">🧠 Memory</span>
+        <h3>Memory &amp; Cache</h3>
+        <p>Per-tab JavaScript heap usage with growth trends, plus buttons to clear a site's cache, cookies, or storage.</p>
+        <div class="ui-priv">Memory figures are read locally per tab; no page content is captured.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
   <div class="section-label">Overview</div>
   <h2>1. Introduction</h2>
 
@@ -333,7 +809,11 @@ footer{
   </p>
 
   <p>
-    Tab Manager Pro automatically manages inactive browser tabs according to user-defined rules. It can close, reload, mute, move, or snooze tabs based on inactivity periods and URL matching rules while providing analytics and memory insights to help optimize browser performance.
+    Tab Manager Pro automatically manages inactive browser tabs according to user-defined rules. It can close, reload, mute, move, group, or snooze tabs based on inactivity periods and URL matching rules, and provides analytics and memory insights to help optimize browser performance. Version 4.0.0 adds bookmark management (import/export/favorites), browsing-history browsing with one-click reopen, on-demand tab grouping, session save/restore, a local heuristic site-safety indicator, and an optional PIN-protected site lock.
+  </p>
+
+  <p>
+    All of these features run locally. The Extension does not transmit your tabs, bookmarks, history, or any other browsing data to us or to any third party.
   </p>
 
   <p>
@@ -381,6 +861,31 @@ footer{
       <td><span class="pill-no">Never</span></td>
       <td>The extension never accesses your location or IP address.</td>
     </tr>
+    <tr>
+      <td>Bookmarks</td>
+      <td><span class="pill-yes">Local Only</span></td>
+      <td>Read and modified only on your device to display, add, import, and export bookmarks. Exports are written directly to a file you choose and are never uploaded.</td>
+    </tr>
+    <tr>
+      <td>Browsing History</td>
+      <td><span class="pill-yes">Local Only</span></td>
+      <td>Queried locally so you can search and reopen recent pages. History is never transmitted off your device.</td>
+    </tr>
+    <tr>
+      <td>Site Lock PIN &amp; Recovery</td>
+      <td><span class="pill-yes">Local Only</span></td>
+      <td>Your PIN and optional recovery answer are never stored in plaintext — only one-way SHA-256 hashes are saved locally and used to verify unlock and reset attempts.</td>
+    </tr>
+    <tr>
+      <td>Saved Sessions</td>
+      <td><span class="pill-yes">Local Only</span></td>
+      <td>Lists of tab URLs you explicitly save for later restore, stored on your device.</td>
+    </tr>
+    <tr>
+      <td>Safety Signals</td>
+      <td><span class="pill-yes">Local Only</span></td>
+      <td>Site-safety labels are computed on-device using pattern heuristics. No URL is sent to any external service or reputation feed.</td>
+    </tr>
   </table>
 </div>
 
@@ -423,6 +928,26 @@ footer{
       <span class="perm-name">browsingData</span>
       Enables cache, cookies and storage cleanup tools.
     </li>
+
+    <li class="perm-item">
+      <span class="perm-name">bookmarks</span>
+      Read, create, and remove bookmarks for the in-extension bookmark manager, import, and export.
+    </li>
+
+    <li class="perm-item">
+      <span class="perm-name">history</span>
+      Search and display your recent browsing history so you can reopen or delete entries. Read locally; never transmitted.
+    </li>
+
+    <li class="perm-item">
+      <span class="perm-name">favicon</span>
+      Displays site icons next to bookmarks and history entries.
+    </li>
+
+    <li class="perm-item">
+      <span class="perm-name">scripting &amp; host access</span>
+      Used to read per-tab JavaScript memory statistics and to display the site-lock screen on sites you have locked. No page content is collected or transmitted.
+    </li>
   </ul>
 </div>
 
@@ -430,7 +955,7 @@ footer{
   <div class="section-label">Storage</div>
   <h2>4. Data Storage & Retention</h2>
 
-  <p>All extension data is stored exclusively using chrome.storage.local and remains on your device.</p>
+  <p>Extension data is stored on your device using <code>chrome.storage.local</code> and <code>chrome.storage.sync</code>. Synced data (rules, settings, locked-site list, PIN hash) may propagate to other devices where you are signed into the same browser profile; it is never sent to us.</p>
 
   <p>The following information may be stored locally:</p>
 
@@ -440,8 +965,12 @@ footer{
     <li>Close history and analytics statistics</li>
     <li>Memory monitoring information</li>
     <li>Snoozed tab information</li>
+    <li>Saved sessions (tab URL lists you choose to save)</li>
+    <li>Locked-site list, a one-way SHA-256 hash of your PIN, and (if set) your recovery question plus a one-way hash of its answer — never the PIN or answer themselves</li>
     <li>User preferences and extension settings</li>
   </ul>
+
+  <p style="margin-top:16px">Rules, settings, and security configuration use <code>chrome.storage.sync</code> so they can follow your signed-in browser profile across devices; all other data uses <code>chrome.storage.local</code>. Bookmarks and history are managed through Chrome's own APIs and are not copied into extension storage. Session unlocks for locked sites are held only in memory and cleared when the browser restarts.</p>
 </div>
 
 <div class="section">
